@@ -137,10 +137,12 @@ http://127.0.0.1:10000
 
 ## 👨‍💻 Author
 
-**Saiteja Goshika**
-📧 [manohargoshika@gmail.com](mailto:manohargoshika@gmail.com)
+**Sai Teja Goshika**
+📧 [goshikasaiteja137@gmail.com](mailto:goshikasaiteja137@gmail.com)
 
 ---
+
+Deployed link : https://ai-spam-analyzer.onrender.com/
 
 ## ⭐ If you like this project
 
