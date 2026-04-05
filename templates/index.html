@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Spam Analyzer Pro</title>
+
+<style>
+body {
+    margin:0;
+    font-family:Segoe UI;
+    background:linear-gradient(135deg,#141e30,#243b55);
+    color:white;
+}
+
+.container {
+    width:700px;
+    margin:40px auto;
+    background:#0b1a2f;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+h2 {
+    font-size:34px;
+}
+
+textarea {
+    width:95%;
+    height:110px;
+    font-size:18px;
+    border-radius:10px;
+    padding:12px;
+}
+
+button {
+    margin-top:12px;
+    padding:14px 30px;
+    border-radius:10px;
+    border:none;
+    background:#00c6ff;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.result {
+    margin-top:25px;
+    font-size:32px;
+    font-weight:bold;
+}
+
+.section {
+    margin-top:20px;
+    font-size:18px;
+}
+
+.badge {
+    display:inline-block;
+    padding:6px 12px;
+    margin:5px;
+    border-radius:10px;
+    background:#444;
+}
+
+.risk {
+    font-size:22px;
+    margin-top:10px;
+}
+
+.bar {
+    width:100%;
+    height:12px;
+    background:#333;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.fill {
+    height:100%;
+    background:linear-gradient(90deg, red, yellow, green);
+}
+
+.history {
+    text-align:left;
+    margin-top:25px;
+    font-size:16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🧠 AI Spam Analyzer Pro</h2>
+
+<form action="/predict" method="post">
+<textarea name="message" id="msg" placeholder="Enter message..." required></textarea><br>
+<button type="submit">Analyze</button>
+<button type="button" onclick="clearText()">Clear</button>
+</form>
+
+{% if prediction_text %}
+
+<div class="result" style="color:{{color}}">
+{{prediction_text}}
+</div>
+
+<div class="risk">
+⚠ Risk Level: <b>{{risk}}</b>
+</div>
+
+<div class="section">
+🔍 Confidence: <b>{{confidence}}%</b>
+</div>
+
+<div class="bar">
+<div class="fill" style="width:{{confidence}}%"></div>
+</div>
+
+<canvas id="chart"></canvas>
+
+<div class="section">
+🧠 Important Words:<br>
+{% for word in important_words %}
+<span class="badge">{{word}}</span>
+{% endfor %}
+</div>
+
+<div class="section">
+<h3>Model Comparison</h3>
+<ul>
+{% for model, result in model_results.items() %}
+<li>{{model}} → {{result}}</li>
+{% endfor %}
+</ul>
+</div>
+
+{% endif %}
+
+<div class="history">
+<h3>Recent Checks</h3>
+<ul>
+{% for item in history %}
+<li>{{item}}</li>
+{% endfor %}
+</ul>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+{% if prediction_text %}
+const ctx = document.getElementById('chart');
+
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Spam Risk','Safe'],
+        datasets: [{
+            data: [{{confidence}}, 100-{{confidence}}],
+        }]
+    }
+});
+{% endif %}
+
+function clearText() {
+    document.getElementById("msg").value = "";
+}
+</script>
+
+</body>
+</html>
