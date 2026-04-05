@@ -142,7 +142,7 @@ http://127.0.0.1:10000
 
 ---
 
-Deployed link : https://ai-spam-analyzer.onrender.com/
+Deployed link : [Ai-Spam_analyzer](https://ai-spam-analyzer.onrender.com/)
 
 ## ⭐ If you like this project
 
